@@ -9,7 +9,7 @@ Requirements: GoLand 2026.2 and [Tilt](https://docs.tilt.dev/install.html).
 
 1. Build the plugin with `task build` or use the existing ZIP.
 2. In GoLand, open `Settings > Plugins > Install Plugin from Disk` and select
-   `build/distributions/jetbrains-tiltfile-0.1.0.zip`.
+   `build/distributions/jetbrains-tiltfile-0.1.1.zip`.
 3. Restart if prompted, then open a `Tiltfile`.
 
 `task build` prints the ZIP path. Build outputs are ignored by Git and may be hidden
@@ -42,6 +42,10 @@ task check -- -PplatformLocalPath="/path/to/GoLand.app"
 
 The real LSP test runs when Tilt is installed. Diagnostics depend on the Tilt server;
 not every syntax error is detected.
+
+## Changelog
+
+See [Changelog.md](Changelog.md) for release history.
 
 ## License
 
