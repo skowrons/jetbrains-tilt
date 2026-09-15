@@ -5,37 +5,44 @@ vars:
 
 tasks:
   default:
-    desc: Verfügbare Aufgaben anzeigen
+    desc: List available tasks
     cmds:
       - task --list
 
   build:
-    desc: Installierbare Plugin-ZIP bauen
+    desc: Build the installable plugin ZIP
     cmds:
       - '{{.GRADLEW}} buildPlugin --console=plain {{.CLI_ARGS}}'
+      - cmd: |
+          for archive in build/distributions/*.zip; do
+            if [ -f "$archive" ]; then
+              printf 'Plugin ZIP: %s/%s\n' "$PWD" "$archive"
+            fi
+          done
+        silent: true
 
   test:
-    desc: Integrations- und LSP-Tests ausführen
+    desc: Run integration and LSP tests
     cmds:
       - '{{.GRADLEW}} test --console=plain {{.CLI_ARGS}}'
 
   verify:
-    desc: Plugin-Konfiguration, ZIP-Struktur und IDE-Kompatibilität prüfen
+    desc: Verify plugin configuration, ZIP structure and IDE compatibility
     cmds:
       - '{{.GRADLEW}} verifyPluginProjectConfiguration verifyPluginStructure verifyPlugin --console=plain {{.CLI_ARGS}}'
 
   check:
-    desc: Tests, Build und alle Plugin-Prüfungen ausführen
+    desc: Run tests, build and all plugin checks
     cmds:
       - '{{.GRADLEW}} test buildPlugin verifyPluginProjectConfiguration verifyPluginStructure verifyPlugin --console=plain {{.CLI_ARGS}}'
 
   run:
-    desc: GoLand mit dem Plugin in einer Sandbox starten
+    desc: Start GoLand with the plugin in a sandbox
     interactive: true
     cmds:
       - '{{.GRADLEW}} runIde --console=plain {{.CLI_ARGS}}'
 
   clean:
-    desc: Build-Ergebnisse entfernen
+    desc: Remove build outputs
     cmds:
       - '{{.GRADLEW}} clean --console=plain {{.CLI_ARGS}}'

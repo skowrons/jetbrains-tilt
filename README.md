@@ -1,46 +1,49 @@
-# Tiltfile für GoLand
+# Tiltfile for GoLand
 
-TextMate-Highlighting, Autovervollständigung, Dokumentation und Parameterhilfe in
-einem Plugin. Der Tilt-Language-Server startet automatisch beim Öffnen einer Tiltfile.
+TextMate highlighting, completion, documentation and parameter hints in one plugin.
+The Tilt language server starts automatically when you open a Tiltfile.
 
 ## Installation
 
-Voraussetzungen: GoLand 2026.2 und [Tilt](https://docs.tilt.dev/install.html).
+Requirements: GoLand 2026.2 and [Tilt](https://docs.tilt.dev/install.html).
 
-1. Plugin mit `task build` bauen oder die fertige ZIP verwenden.
-2. In GoLand unter `Settings > Plugins > Install Plugin from Disk` die Datei
-   `build/distributions/jetbrains-tiltfile-0.1.0.zip` auswählen.
-3. Falls angefordert neu starten, dann eine `Tiltfile` öffnen.
+1. Build the plugin with `task build` or use the existing ZIP.
+2. In GoLand, open `Settings > Plugins > Install Plugin from Disk` and select
+   `build/distributions/jetbrains-tiltfile-0.1.0.zip`.
+3. Restart if prompted, then open a `Tiltfile`.
 
-Tilt wird automatisch gefunden. Einen abweichenden Pfad unter
-`Settings > Languages & Frameworks > Tiltfile` eintragen.
-Syntax-Highlighting funktioniert auch ohne Tilt; `tilt up` ist für die Editorhilfe nicht nötig.
+`task build` prints the ZIP path. Build outputs are ignored by Git and may be hidden
+in the IDE project view; use the path above in the plugin installation dialog.
 
-## Entwicklung
+Tilt is detected automatically. Set a custom path under
+`Settings > Languages & Frameworks > Tiltfile` if needed.
+Syntax highlighting works without Tilt; editor features do not require `tilt up`.
 
-Voraussetzungen: JDK 25 und [Task](https://taskfile.dev).
-Der Gradle Wrapper ist enthalten. Standardziel ist GoLand 2026.2.2.1.
+## Development
+
+Requirements: JDK 25 and [Task](https://taskfile.dev).
+The Gradle Wrapper is included. The default target is GoLand 2026.2.2.1.
 
 ```sh
-task          # Aufgaben anzeigen
-task build    # Plugin-ZIP bauen
-task test     # Tests ausführen
-task verify   # Plugin-Konfiguration, Struktur und Kompatibilität prüfen
-task check    # Tests, Build und alle Prüfungen
-task run      # GoLand mit Plugin in einer Sandbox starten
-task clean    # Build-Ergebnisse entfernen
+task          # List tasks
+task build    # Build the plugin ZIP
+task test     # Run tests
+task verify   # Verify plugin configuration, structure and compatibility
+task check    # Run tests, build and all checks
+task run      # Start GoLand with the plugin in a sandbox
+task clean    # Remove build outputs
 ```
 
-Zusätzliche Gradle-Argumente nach `--` übergeben, beispielsweise für eine lokale IDE:
+Pass additional Gradle arguments after `--`, for example to use a local IDE:
 
 ```sh
 task check -- -PplatformLocalPath="/path/to/GoLand.app"
 ```
 
-Der echte LSP-Test läuft bei installiertem Tilt. Diagnosen hängen vom Tilt-Server ab;
-nicht jeder Syntaxfehler wird erkannt.
+The real LSP test runs when Tilt is installed. Diagnostics depend on the Tilt server;
+not every syntax error is detected.
 
-## Lizenz
+## License
 
-[MIT](LICENSE). Die mitgelieferte Grammatik hat eigene
-[Lizenzhinweise](textmate/README.md).
+[MIT](LICENSE). The bundled grammar has its own
+[license notices](textmate/README.md).
