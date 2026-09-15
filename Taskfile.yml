@@ -1,0 +1,41 @@
+version: '3'
+
+vars:
+  GRADLEW: '{{if eq OS "windows"}}./gradlew.bat{{else}}./gradlew{{end}}'
+
+tasks:
+  default:
+    desc: Verfügbare Aufgaben anzeigen
+    cmds:
+      - task --list
+
+  build:
+    desc: Installierbare Plugin-ZIP bauen
+    cmds:
+      - '{{.GRADLEW}} buildPlugin --console=plain {{.CLI_ARGS}}'
+
+  test:
+    desc: Integrations- und LSP-Tests ausführen
+    cmds:
+      - '{{.GRADLEW}} test --console=plain {{.CLI_ARGS}}'
+
+  verify:
+    desc: Plugin-Konfiguration, ZIP-Struktur und IDE-Kompatibilität prüfen
+    cmds:
+      - '{{.GRADLEW}} verifyPluginProjectConfiguration verifyPluginStructure verifyPlugin --console=plain {{.CLI_ARGS}}'
+
+  check:
+    desc: Tests, Build und alle Plugin-Prüfungen ausführen
+    cmds:
+      - '{{.GRADLEW}} test buildPlugin verifyPluginProjectConfiguration verifyPluginStructure verifyPlugin --console=plain {{.CLI_ARGS}}'
+
+  run:
+    desc: GoLand mit dem Plugin in einer Sandbox starten
+    interactive: true
+    cmds:
+      - '{{.GRADLEW}} runIde --console=plain {{.CLI_ARGS}}'
+
+  clean:
+    desc: Build-Ergebnisse entfernen
+    cmds:
+      - '{{.GRADLEW}} clean --console=plain {{.CLI_ARGS}}'

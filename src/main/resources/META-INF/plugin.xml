@@ -1,0 +1,22 @@
+<idea-plugin>
+    <id>one.skowron.tiltfile</id>
+    <name>Tiltfile</name>
+    <vendor>Maximilian Skowron</vendor>
+    <description><![CDATA[
+        Tiltfile editing support with bundled TextMate syntax highlighting and automatic
+        integration with Tilt's language server: completion, documentation, parameter hints
+        and diagnostics. Install the plugin and open a Tiltfile. Requires Tilt on your machine;
+        a custom executable can be selected under Settings &gt; Languages &amp; Frameworks &gt; Tiltfile.
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lsp</depends>
+    <depends>org.jetbrains.plugins.textmate</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <textmate.bundleProvider implementation="one.skowron.tiltfile.TiltTextMateBundleProvider"/>
+        <platform.lsp.integrationProvider implementation="one.skowron.tiltfile.TiltLspIntegrationProvider"/>
+        <applicationConfigurable parentId="language" id="one.skowron.tiltfile.settings"
+                                 displayName="Tiltfile" instance="one.skowron.tiltfile.TiltConfigurable"/>
+        <notificationGroup id="Tiltfile" displayType="BALLOON"/>
+    </extensions>
+</idea-plugin>
+
